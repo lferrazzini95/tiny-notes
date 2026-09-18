@@ -8,6 +8,8 @@ via `git log`, not backfilled here.
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-09-18
+
 ### Fixed
 
 - Selecting a row in Todos or Notes no longer reboots the device. The
