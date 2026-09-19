@@ -5,6 +5,42 @@ list scannable. Full history — investigation notes, what was fixed, and
 on-device verification — is preserved here in original order. See
 `docs/todo.md` for what's still open.
 
+## ~~Full refreshes are too frequent / too visible~~ — resolved
+
+Craig's report (2026-09-11): full refreshes happen "rather egregiously" and
+should be reduced further. Every screen-to-screen navigation in
+`main/app_shell.cpp` (Home, Settings, Wifi, Time, Notes, Todos, FollowUp,
+Details, Topics, onboarding, ...) unconditionally requested
+`display_service::RefreshMode::kFull` -- the slowest waveform, used for
+every page change, not just ghost-clearing or wake/boot recovery.
+
+Investigation first pursued wiring up the existing-but-unused `kFast` OTP
+waveform, but git history showed that path had already been tried and
+reverted (`2e058a9` / `ae15b27`) for a real reason: `kFast` "flashes like a
+full refresh but finishes grey," it doesn't reach full contrast on this
+panel. Waveshare's own reference firmware uses the byte-for-byte identical
+fast-mode register sequence, and even their own on-device text reader avoids
+it for page turns in favor of plain partial refreshes -- a strong hint
+`kFast` isn't trustworthy for large-area content on this panel at all.
+
+Went with the fallback documented here instead: switched all ~27
+navigation-triggered `Show*Screen(...)` calls in `main/app_shell.cpp` from
+`RefreshMode::kFull` to `RefreshMode::kPartial` (change-detected, no flash
+waveform), leaving `kFull` only for first boot paint and waking from
+sleep/lock screen. The existing 8-consecutive-partials ghost-clear flush
+(`EpaperPanel::NeedsGhostingFlush()`) still runs automatically to prevent
+ghosting from accumulating, and three other `kFull` call sites outside
+`app_shell.cpp` (`lock_screen_runtime.cpp`'s unlock restore,
+`book_list_page_runtime.cpp`'s post-delete refresh,
+`page_input_runtime.cpp`'s Wifi force-refresh) were confirmed to be
+legitimately different cases -- not screen switches -- and left untouched.
+
+Not done: the fallback section's optional manual "force full refresh"
+gesture escape-hatch was not built (no free button slot was identified);
+the automatic ghost-clear flush is still the only mechanism that clears
+accumulated ghosting. Worth revisiting if `kPartial` navigation turns out to
+leave visible ghosting between automatic flushes in practice.
+
 ## ~~Defer the ghosting flush to idle instead of firing mid-interaction~~ — resolved
 
 The SSD1677 driver used to force a full-waveform refresh inline the moment
