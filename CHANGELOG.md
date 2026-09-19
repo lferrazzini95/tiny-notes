@@ -20,6 +20,11 @@ via `git log`, not backfilled here.
   waveform is the slower of the two. The existing ghosting-flush safety net
   still forces a periodic full clear so image quality doesn't degrade over
   time. First boot paint and waking from sleep/lock screen are unchanged.
+### Added
+
+- Settings > Sound: a new "Volume" picker (Mute, 10%-100%) controlling the
+  shared audio codec's output level for both sound cues and recording
+  playback. Persists across reboot and applies live.
 
 ## [0.6.1] - 2026-09-18
 
