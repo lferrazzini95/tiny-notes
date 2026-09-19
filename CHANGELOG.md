@@ -8,6 +8,19 @@ via `git log`, not backfilled here.
 
 ## [Unreleased]
 
+### Fixed
+
+- Navigating between screens (dashboard menu, footer shortcuts, settings
+  sub-pages, back navigation, etc.) no longer triggers the e-paper panel's
+  full black/white clear waveform on every switch. The panel already
+  supports a change-detected partial refresh with no visible flash; screen
+  navigation in `app_shell.cpp` was unconditionally requesting a full
+  refresh regardless of how much content actually changed. Navigation now
+  requests a partial refresh, which is also faster since the full-clear
+  waveform is the slower of the two. The existing ghosting-flush safety net
+  still forces a periodic full clear so image quality doesn't degrade over
+  time. First boot paint and waking from sleep/lock screen are unchanged.
+
 ## [0.6.1] - 2026-09-18
 
 ### Fixed

@@ -52,9 +52,12 @@ A few things worth knowing up front:
 - **Holding PWR for a full 6 seconds forces the power off**, no matter what
   the screen is doing. This is a hardware failsafe, not something you
   should need in normal use.
-- The screen is e-paper: black-and-white, and it **visibly flashes** on a
-  full-screen refresh (opening a new screen, waking up). Smaller updates
-  (moving a selection, a checkbox) redraw more quietly. This is normal.
+- The screen is e-paper: black-and-white. It **visibly flashes** only at
+  startup and when waking from sleep/lock, to clear any ghosting. Switching
+  between screens and smaller updates (moving a selection, a checkbox) redraw
+  quietly without a flash; a brief flash every so often during regular use is
+  the panel periodically clearing accumulated ghosting on its own. This is
+  normal.
 
 ## First-time setup
 
