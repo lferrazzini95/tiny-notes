@@ -20,6 +20,25 @@ via `git log`, not backfilled here.
   waveform is the slower of the two. The existing ghosting-flush safety net
   still forces a periodic full clear so image quality doesn't degrade over
   time. First boot paint and waking from sleep/lock screen are unchanged.
+- Select/confirm (FN) and Back (a quick ACTION tap) now react immediately on
+  button release instead of waiting ~180ms to rule out a double-click first.
+  That disambiguation window existed for the iot_button library's built-in
+  single/double-click classification, but nothing in the app has ever used a
+  distinct double-click action outside the wake-from-sleep unlock gesture
+  (a separate code path, unaffected by this change) — everywhere else it
+  only played a sound. One minor behavior change: an accidental double-tap
+  now activates twice in quick succession instead of being silently
+  absorbed; the stray double-click sound for Select is also removed since
+  it no longer reflects anything meaningful.
+- Deleting a book from the Books list, and force-refreshing the Wifi page,
+  no longer trigger a full black/white flash — both switched to the same
+  change-detected partial refresh used elsewhere.
+- Raised the automatic ghost-clearing flush's trigger threshold from 8 to 12
+  consecutive partial refreshes (`components/epaper_panel/ssd1677_driver.cpp`),
+  so it fires less often during ordinary scrolling. This trades slightly
+  longer exposure to visible ghosting between flushes for fewer flashes;
+  not verified on real hardware as of this change.
+
 ### Added
 
 - Settings > Sound: a new "Volume" picker (Mute, 10%-100%) controlling the
