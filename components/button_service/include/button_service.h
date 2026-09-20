@@ -49,9 +49,18 @@ struct ButtonEventInfo {
 // sub-control (item list, scroll container, etc). Holding DOWN is
 // deliberately not part of this -- that hold is reserved for continuous
 // scrolling within an entered control instead.
+//
+// Fires on PRESS_UP rather than waiting for the SINGLE_CLICK classification
+// (which withholds ~180ms to rule out a second tap) -- ACTION's double-click
+// has no distinct action anywhere in the app (it only plays a cue), so there
+// is nothing to disambiguate for on this button, and reacting immediately on
+// release removes a user-visible chunk of latency from the most-used
+// navigation gesture in the app. The wake-from-sleep double-click-to-unlock
+// gesture (device_sleep_runtime.cpp) is a separate code path that inspects
+// raw button events directly and is unaffected by this.
 inline bool IsBackGesture(const ButtonEventInfo& event)
 {
-    return event.button == ButtonId::kAction && event.event == ButtonEvent::kSingleClick;
+    return event.button == ButtonId::kAction && event.event == ButtonEvent::kPressUp;
 }
 
 using EventHandler = void (*)(const ButtonEventInfo& event, void* context);

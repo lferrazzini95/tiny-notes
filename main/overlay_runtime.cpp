@@ -961,7 +961,7 @@ app_interaction::InputResult HandleButtonEvent(const button_service::ButtonEvent
             result.consumed = true;
             const int focus_index = s_sticky_note_focus.index();
             if (button_service::IsSelectButton(event.button) &&
-                event.event == button_service::ButtonEvent::kSingleClick) {
+                event.event == button_service::ButtonEvent::kPressUp) {
                 play_click = true;
                 if (StickyFocusIsBody(focus_index)) {
                     // OK on the transcript enters scroll mode; inert if already entered.
@@ -1005,7 +1005,7 @@ app_interaction::InputResult HandleButtonEvent(const button_service::ButtonEvent
         if (s_card_modal_state.visible) {
             result.consumed = true;
             switch (event.event) {
-                case button_service::ButtonEvent::kSingleClick:
+                case button_service::ButtonEvent::kPressUp:
                     if (button_service::IsSelectButton(event.button) &&
                         epaper_ui::CardModalActionCount(s_card_modal_state) > 0) {
                         const int index = s_card_modal_state.selected_action_index;
@@ -1077,7 +1077,7 @@ app_interaction::InputResult HandleButtonEvent(const button_service::ButtonEvent
             keyboard_handler = s_keyboard_event_handler;
             keyboard_context = s_keyboard_event_context;
             switch (event.event) {
-                case button_service::ButtonEvent::kSingleClick:
+                case button_service::ButtonEvent::kPressUp:
                     if (button_service::IsSelectButton(event.button)) {
                         const epaper_ui::KeyboardActionResult action =
                             epaper_ui::KeyboardController::ActivateFocusedKey(s_keyboard_state, false);
@@ -1104,7 +1104,7 @@ app_interaction::InputResult HandleButtonEvent(const button_service::ButtonEvent
         if (s_select_modal_state.visible) {
             result.consumed = true;
             switch (event.event) {
-                case button_service::ButtonEvent::kSingleClick:
+                case button_service::ButtonEvent::kPressUp:
                     if (button_service::IsSelectButton(event.button)) {
                         const int index = CurrentSelectModalIndexLocked();
                         const bool toggle_in_place =

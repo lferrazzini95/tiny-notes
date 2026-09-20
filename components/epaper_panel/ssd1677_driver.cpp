@@ -15,7 +15,15 @@ constexpr const char* kTag = "Ssd1677";
 // need a full re-drive. Soft budget only: NeedsGhostingFlush() turns true once it's hit,
 // but callers (display_service) decide when to act on it rather than this driver forcing
 // a flush inline on whichever partial refresh call happens to reach this count.
-constexpr int kMaxPartialRefreshesBeforeFlush = 8;
+//
+// Was 8, originally tuned empirically on-device. Bumped to 12 (untested on real hardware
+// as of this change) as part of a pass to reduce how often the visible full-flash flush
+// fires during normal browsing -- 8 was low enough to trip within a single scroll through
+// an ordinary list. This is a direct trade-off against ghosting becoming visible for
+// longer between flushes; if ghosting looks worse than before after this change, lower it
+// back down (nothing else needs to change -- kHardPartialRefreshCeiling below scales with
+// it automatically).
+constexpr int kMaxPartialRefreshesBeforeFlush = 12;
 // Hard backstop, enforced inline here regardless of what any caller does with
 // NeedsGhostingFlush(): bounds how far ghosting can grow under continuous, gapless input.
 constexpr int kHardPartialRefreshCeiling = kMaxPartialRefreshesBeforeFlush * 5 / 2;

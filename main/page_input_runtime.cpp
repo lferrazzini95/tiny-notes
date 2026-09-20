@@ -378,18 +378,18 @@ ButtonResult HandleSettingsStorageButtonEvent(const button_service::ButtonEventI
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplySettingsStorageActivateResult(
                 settings_storage_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -490,18 +490,18 @@ ButtonResult HandleSettingsTodosButtonEvent(const button_service::ButtonEventInf
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplySettingsTodosActivateResult(
                 settings_todos_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -602,18 +602,18 @@ ButtonResult HandleSettingsSoundButtonEvent(const button_service::ButtonEventInf
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplySettingsSoundActivateResult(
                 settings_sound_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -715,18 +715,18 @@ ButtonResult HandleSettingsTopicsButtonEvent(const button_service::ButtonEventIn
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplySettingsTopicsActivateResult(
                 settings_topics_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -793,7 +793,7 @@ ButtonResult ApplyWifiActivateResult(const wifi_page_interactions::ActivateResul
         result.footer_item = footer_runtime::FooterFocusItem::kTime;
     };
     callbacks.force_refresh = []() {
-        ApplyWifiPageStateUpdate(display_service::RefreshMode::kFull);
+        ApplyWifiPageStateUpdate(display_service::RefreshMode::kPartial);
     };
     callbacks.toggle_wifi = []() {
         const wifi_service::UiState state = wifi_service::GetUiState();
@@ -1118,18 +1118,18 @@ ButtonResult HandleTopicsBrowseButtonEvent(const button_service::ButtonEventInfo
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyTopicsBrowseActivateResult(
                 topics_browse_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -1228,17 +1228,17 @@ ButtonResult HandleBookListButtonEvent(const button_service::ButtonEventInfo& ev
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyBookListActivateResult(book_list_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -1417,18 +1417,18 @@ ButtonResult HandleTopicEntriesButtonEvent(const button_service::ButtonEventInfo
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyTopicEntriesActivateResult(
                 topic_entries_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -1537,17 +1537,17 @@ ButtonResult HandleTopicSummaryButtonEvent(const button_service::ButtonEventInfo
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyTopicSummaryActivateResult(topic_summary_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -1670,17 +1670,17 @@ ButtonResult HandleNotesButtonEvent(const button_service::ButtonEventInfo& event
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyNotesActivateResult(notes_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -1805,17 +1805,17 @@ ButtonResult HandleTodosButtonEvent(const button_service::ButtonEventInfo& event
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyTodosActivateResult(todos_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -1938,17 +1938,17 @@ ButtonResult HandleFollowUpButtonEvent(const button_service::ButtonEventInfo& ev
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyFollowUpActivateResult(follow_up_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2005,17 +2005,17 @@ ButtonResult HandleOnboardingButtonEvent(const button_service::ButtonEventInfo& 
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyOnboardingActivateResult(onboarding_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2142,17 +2142,17 @@ ButtonResult HandleDetailsButtonEvent(const button_service::ButtonEventInfo& eve
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyDetailsActivateResult(details_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2166,17 +2166,17 @@ ButtonResult HandleSettingsButtonEvent(const button_service::ButtonEventInfo& ev
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplySettingsActivateResult(settings_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2187,7 +2187,7 @@ ButtonResult HandleWifiButtonEvent(const button_service::ButtonEventInfo& event)
     ButtonResult result = {};
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             // App-wide gesture: a quick ACTION tap (the dedicated back button) exits an
             // entered UI (here, the network list).
             if (button_service::IsBackButton(event.button)) {
@@ -2199,8 +2199,9 @@ ButtonResult HandleWifiButtonEvent(const button_service::ButtonEventInfo& event)
             }
             return ApplyWifiActivateResult(wifi_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             if (!button_service::IsSelectButton(event.button)) {
@@ -2209,7 +2210,6 @@ ButtonResult HandleWifiButtonEvent(const button_service::ButtonEventInfo& event)
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2223,17 +2223,17 @@ ButtonResult HandleTimeButtonEvent(const button_service::ButtonEventInfo& event)
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyTimeActivateResult(time_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2247,17 +2247,17 @@ ButtonResult HandleDashboardButtonEvent(const button_service::ButtonEventInfo& e
     }
 
     switch (event.event) {
-        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kPressUp:
             return ApplyDashboardActivateResult(dashboard_page_runtime::ActivateFocusedItem());
         case button_service::ButtonEvent::kPressDown:
-        case button_service::ButtonEvent::kPressUp:
         case button_service::ButtonEvent::kPressRepeat:
+        case button_service::ButtonEvent::kSingleClick:
+        case button_service::ButtonEvent::kDoubleClick:
         case button_service::ButtonEvent::kLongPressStart:
         case button_service::ButtonEvent::kLongPressUp:
             result.handled = true;
             result.interaction_result.consumed = true;
             return result;
-        case button_service::ButtonEvent::kDoubleClick:
         default:
             return result;
     }
@@ -2470,9 +2470,10 @@ ButtonResult HandleButtonEventForCurrentScreen(const button_service::ButtonEvent
     // The Sticky footer button is uniform across pages (always opens the sticky overlay), so rather
     // than thread a per-page intent through every page's activation, handle it centrally: the shared
     // per-page footer handler only maps Home/Settings/Wifi/Time, so a focused Sticky button falls
-    // through here on a Select single click.
+    // through here on Select's press-up (reacts immediately rather than waiting through the
+    // single/double-click disambiguation window, same as every per-page activation above).
     if (!result.handled && button_service::IsSelectButton(event.button) &&
-        event.event == button_service::ButtonEvent::kSingleClick &&
+        event.event == button_service::ButtonEvent::kPressUp &&
         BuildFooterProjectionForScreen(screen).focused_item ==
             footer_runtime::FooterFocusItem::kSticky) {
         result.handled = true;
