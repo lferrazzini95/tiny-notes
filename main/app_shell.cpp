@@ -1700,10 +1700,14 @@ void HandleDispatchedButtonEvent(const button_service::ButtonEventInfo& event)
             break;
         case button_service::ButtonEvent::kDoubleClick:
             // FN has no double-click action: lock/unlock moved to the PMIC power key
-            // (HandlePowerKeyInterrupt). DOWN is excluded because holding it is the
-            // app-wide "exit an entered UI" gesture and the per-screen page input owns
-            // its cue. Everything else just plays the double-click cue.
-            if (event.button != button_service::ButtonId::kDown) {
+            // (HandlePowerKeyInterrupt). UP/DOWN are excluded because each tap that makes
+            // up the double-click already moved focus and played its own navigation click
+            // on press-down/repeat (input_focus_runtime) -- without this exclusion, a
+            // quick double-tap scroll plays that extra double-click cue on top, audible
+            // as a stray "double click" sound for what is otherwise a single scroll step.
+            // Everything else just plays the double-click cue.
+            if (event.button != button_service::ButtonId::kDown &&
+                event.button != button_service::ButtonId::kUp) {
                 PlayFeedback(feedback_service::FeedbackEvent::kButtonDoubleClick);
             }
             break;

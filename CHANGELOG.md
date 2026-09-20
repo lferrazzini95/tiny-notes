@@ -36,8 +36,15 @@ via `git log`, not backfilled here.
 - Raised the automatic ghost-clearing flush's trigger threshold from 8 to 12
   consecutive partial refreshes (`components/epaper_panel/ssd1677_driver.cpp`),
   so it fires less often during ordinary scrolling. This trades slightly
-  longer exposure to visible ghosting between flushes for fewer flashes;
-  not verified on real hardware as of this change.
+  longer exposure to visible ghosting between flushes for fewer flashes. A
+  follow-up attempt to raise it further to 20, aimed at reducing how often
+  continuous held-down scrolling forces a flash mid-scroll, made on-device
+  flickering worse and was reverted back to 12.
+- A quick double-tap on UP while scrolling could play an extra double-click
+  sound cue on top of the per-step navigation click, sounding like "a double
+  click but it only scrolled once." `app_shell.cpp`'s double-click handler
+  already excluded DOWN from this cue (each tap already plays its own
+  navigation click), but not UP; it's now excluded too.
 
 ### Added
 
